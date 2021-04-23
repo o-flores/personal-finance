@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <script src="https://kit.fontawesome.com/2ddcb6346f.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700;900&display=swap" rel="stylesheet">
+  <title>Personal Finances</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>Control your finances</h1>
+  </header>
+  <section>
+    <ul id="months">
+      <li>Jan</li>
+      <li>Feb</li>
+      <li>Mar</li>
+      <li>May</li>
+      <li>Jun</li>
+      <li>Jul</li>
+      <li>Ago</li>
+      <li>Set</li>
+      <li>Oct</li>
+      <li>Nov</li>
+      <li>Dez</li>
+    </ul>
+  </section>
+  <main>
+    <section>
+      <div class="cards">
+        <h3>Incomes</h2>
+        <div class="values">
+          <p id="incomes">- R$</p>
+          <i class="fas fa-plus-circle"></i>
+        </div>
+
+      </div>
+      <div class="cards">
+        <h3>Expenses</h2>
+        <div class="values">
+          <p id="expenses">- R$</p>
+          <i class="fas fa-minus-circle"></i>
+        </div>
+
+      </div>
+      <div class="cards">
+        <h3>Total</h2>
+        <div class="values">
+          <p id="total">- R$</p>
+          <i class="fas fa-equals"></i>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="balance">
+      <h2>Month Balance</h2>
+      <h3>Add your expense or income</h3>
+      <input type="text" name="expense" id="input-expense" class="inputs" placeholder="Ex: groceries" required>
+     
+      <input type="number" name="value" id="input-value" class="inputs" placeholder="Ex: 25,90" min="0">
+
+      <input type="date" name="date" id="input-date" class="inputs" required>
+      
+      <button id='add-btn' type="button">Add!</button>
+      <div id="transactions">
+        <table>
+          <thead>
+            <tr>
+              <th>Dresciption</th>
+              <th>Value</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script src="/script.js"></script>
+</body>
+
+</html>
