@@ -31,6 +31,11 @@ ul li {
   background-color: #F7F8FA;
 }
 
+ul li:hover {
+  background-color: white;
+  cursor: pointer;
+}
+
 .cards {
   width: 40%;
   margin: auto;
@@ -130,4 +135,13 @@ tbody tr{
 tbody tr:hover {
   background-color: white;
   opacity: 1;
+  cursor: pointer;
+}
+
+.incomes {
+  color: #04D361;
+}
+
+.expenses {
+  color: #F42525;
 }
