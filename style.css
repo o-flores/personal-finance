@@ -36,12 +36,16 @@ ul li:hover {
   cursor: pointer;
 }
 
+.selected {
+  background-color: white;
+  border: 1px solid #494D4B;
+}
+
 .cards {
   width: 40%;
   margin: auto;
   margin-top: 2rem;
   background-color: #F7F8FA;
-  /* border: #F7F8FA 1px solid; */
   padding: 1rem 1rem 1.5rem;
   border-radius: 0.3rem;
 }

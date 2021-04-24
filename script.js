@@ -7,6 +7,7 @@ const inputs = document.querySelectorAll('input');
 const incomesCard = document.querySelector('#incomes');
 const expensesCard = document.querySelector('#expenses');
 const totalCard = document.querySelector('#total');
+const months = document.querySelectorAll('#months li');
 
 const verifyInputs = () => {
   let result = true;
@@ -16,30 +17,38 @@ const verifyInputs = () => {
   return result;
 }
 
-const addExpense = () => {
+const createRow = (input) => {
+  const td = document.createElement('td');
+  if (input.id === 'input-value') {
+    td.innerText = `${input.value} R$`;
+    input.value < 0 ? td.classList.add('expenses') : td.classList.add('incomes');
+  } else {
+    td.innerText = `${input.value}`;
+  }
+  return td;
+}
+
+const addTransaction = () => {
   addBtn.addEventListener('click', () => {
-    if(!verifyInputs()) {
+    if (!verifyInputs()) {
       alert('Type all the infos');
       return;
-    } 
+    }
     const tr = document.createElement('tr');
     inputs.forEach((input) => {
-      const td = document.createElement('td');
-      if (input.id === 'input-value') {
-        td.innerText = `${input.value} R$`;
-        input.value < 0 ? td.classList.add('expenses') : td.classList.add('incomes');
-      } else {
-        td.innerText = `${input.value}`;
-      }
-      tr.appendChild(td);
+      tr.appendChild(createRow(input));
     })
     tr.addEventListener('click', (event) => deleteRow(event.currentTarget));
     tBody.appendChild(tr);
     inputs.forEach((input) => input.value = '');
-    updateIncomes();
-    updateExpenses();
-    updateTotal();
+    updateAll();
   })
+}
+
+const updateAll = () => {
+  updateIncomes();
+  updateExpenses();
+  updateTotal();
 }
 
 const updateExpenses = () => {
@@ -73,11 +82,22 @@ const updateTotal = () => {
 
 const deleteRow = (event) => {
   event.remove();
-  updateExpenses();
-  updateIncomes();
-  updateTotal();
+  updateAll();
+}
+const removeSelected = () => {
+  const selected = document.querySelector('.selected');
+  if(selected) selected.classList.remove('selected');
+}
+const monthsClicked = () => {
+  months.forEach((month) => {
+    month.addEventListener('click', (event) => {
+      removeSelected();
+      event.target.classList.add('selected');
+    })
+  });
 }
 
 window.onload = () => {
-  addExpense();
+  addTransaction();
+  monthsClicked();
 }
