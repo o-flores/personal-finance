@@ -89,19 +89,21 @@ ul li:hover {
 .inputs {
   border: #F7F8FA 1px solid;
   border-radius: 0.2rem;
-  background-color: #F7F8FA;
   padding: 0.5rem;
   margin-right: 0.75rem;
 }
 
 button {
-  padding: 0.35rem;
+  padding: 0.5rem;
   background-color: #F7F8FA;
   border: #AFB2B1 1px solid;
+  border-radius: 0.3rem;
+  color: #494D4B;
+  font-weight: 700;
 }
 
 #transactions {
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 table {
