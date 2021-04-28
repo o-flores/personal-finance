@@ -29,12 +29,16 @@ const createRow = (input) => {
   return td;
 }
 
+const updateIDValue = () => {
+  const inputId = document.querySelector("#id");
+  inputId.value = parseInt(inputId.value) + 1;
+}
+
 const addTransaction = () => {
   addBtn.addEventListener('click', () => {
     const selected = document.querySelector('.selected');
     if (!verifyInputs()) {
       alert('Type all the infos');
-
     }
     if (!selected) {
       alert('Selecione um mês');
@@ -46,7 +50,8 @@ const addTransaction = () => {
     })
     tr.addEventListener('click', (event) => deleteRow(event.currentTarget));
     tBody.appendChild(tr);
-    inputs.forEach((input) => input.value = '');
+    updateIDValue();
+    // inputs.forEach((input) => input.value = '');
     updateAll();
   })
 }
@@ -86,8 +91,17 @@ const updateTotal = () => {
   totalCard.innerText = `${total.toFixed(2)} R$`
 }
 
+const deleteFromLocalStorage = (event) => {
+  const children = event.childNodes;
+  console.log(children[0].innerText);
+  const selected = document.querySelector('.selected');
+  const month = selected.innerText;
+  localStorage.removeItem(`${month}-${children[0].innerText}`)
+}
+
 const deleteRow = (event) => {
   event.remove();
+  deleteFromLocalStorage(event);
   updateAll();
 }
 
@@ -111,30 +125,35 @@ const saveOnLocalStorage = () => {
   saveBtn.addEventListener('click', () => {
     const selected = document.querySelector('.selected');
     const rows = document.querySelectorAll('tbody tr');
-    console.log(rows);
-    rows.forEach((row, index) => {
-      localStorage.setItem(`${selected.innerText}-${index}`, row.innerText);
+    rows.forEach((row) => {
+      const tds = row.childNodes;
+      const array = [];
+      tds.forEach((td) => array.push(td.innerText))
+      const JSONArray = JSON.stringify(array)
+      localStorage.setItem(`${selected.innerText}-${JSON.parse(JSONArray)[0]}`, JSONArray);
     })
   });
-  // localStorage.setItem(`${month}`, JSON.stringify(row));
-  // console.log(JSON.parse(localStorage.getItem(`${month}`)));
 }
 
 const getLocalStorage = (event) => {
   const month = event.target.innerText;
+  tBody.innerText = '';
   for (let index = 0; index < localStorage.length; index += 1) {
-    // console.log(localStorage.key(index).split('-')[0]);
     if (localStorage.key(index).split('-')[0] === month) {
       const row = document.createElement('tr');
-      const text = localStorage.getItem(localStorage.key(index));
-      const space = text.indexOf('$');
-      const date = text.slice(space + 2);
-      // const newText = text.split(' ');
-
-      // console.log(newText[0]);
-      // row.innerText = text;
-      // console.log(row);
-      // tBody.appendChild(row);
+      const values = JSON.parse(localStorage.getItem(localStorage.key(index)));
+      values.forEach((value, index) => {
+        const td = document.createElement('td');
+        if (index === 2) {
+          const number = parseFloat(value.split('R')[0]);
+          number < 0 ? td.classList.add('expenses') : td.classList.add('incomes');
+        }
+        td.innerText = value;
+        row.appendChild(td);
+        row.addEventListener('click', (event) => deleteRow(event.currentTarget));
+      });
+      tBody.appendChild(row);
+      updateAll();
     }
   }
 }

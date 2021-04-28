@@ -64,18 +64,21 @@
     <section id="balance">
       <h2>Month Balance</h2>
       <h3>Add your expense or income</h3>
+      <input type="hidden" value="1" name="id" id="id">
+
       <input type="text" name="expense" id="input-description" class="inputs" placeholder="Ex: groceries" required>
 
       <input type="number" name="value" id="input-value" class="inputs" placeholder="Ex: 25,90">
 
       <input type="date" name="date" id="input-date" class="inputs" required>
-
+      
       <button id='add-btn' type="button">Add!</button>
       <button id="save-btn">Save</button>
       <div id="transactions">
         <table>
           <thead>
             <tr>
+              <th>ID</th>
               <th>Dresciption</th>
               <th>Value</th>
               <th>Date</th>
