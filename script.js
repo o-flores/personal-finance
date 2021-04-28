@@ -29,11 +29,6 @@ const createRow = (input) => {
   return td;
 }
 
-const updateIDValue = () => {
-  const inputId = document.querySelector("#id");
-  inputId.value = parseInt(inputId.value) + 1;
-}
-
 const addTransaction = () => {
   addBtn.addEventListener('click', () => {
     const selected = document.querySelector('.selected');
@@ -50,8 +45,7 @@ const addTransaction = () => {
     })
     tr.addEventListener('click', (event) => deleteRow(event.currentTarget));
     tBody.appendChild(tr);
-    updateIDValue();
-    // inputs.forEach((input) => input.value = '');
+    inputs.forEach((input) => input.value = '');
     updateAll();
   })
 }
@@ -96,7 +90,7 @@ const deleteFromLocalStorage = (event) => {
   console.log(children[0].innerText);
   const selected = document.querySelector('.selected');
   const month = selected.innerText;
-  localStorage.removeItem(`${month}-${children[0].innerText}`)
+  localStorage.removeItem(`${month}-${children[0].innerText}-${children[1].innerText}-${children[2].innerText}`)
 }
 
 const deleteRow = (event) => {
@@ -130,12 +124,13 @@ const saveOnLocalStorage = () => {
       const array = [];
       tds.forEach((td) => array.push(td.innerText))
       const JSONArray = JSON.stringify(array)
-      localStorage.setItem(`${selected.innerText}-${JSON.parse(JSONArray)[0]}`, JSONArray);
+      localStorage.setItem(`${selected.innerText}-${JSON.parse(JSONArray)[0]}-${JSON.parse(JSONArray)[1]}-${JSON.parse(JSONArray)[2]}`, JSONArray);
     })
   });
 }
 
 const getLocalStorage = (event) => {
+  if(!event.target.classList.contains('selected')) return;
   const month = event.target.innerText;
   tBody.innerText = '';
   for (let index = 0; index < localStorage.length; index += 1) {
@@ -144,7 +139,7 @@ const getLocalStorage = (event) => {
       const values = JSON.parse(localStorage.getItem(localStorage.key(index)));
       values.forEach((value, index) => {
         const td = document.createElement('td');
-        if (index === 2) {
+        if (index === 1) {
           const number = parseFloat(value.split('R')[0]);
           number < 0 ? td.classList.add('expenses') : td.classList.add('incomes');
         }
